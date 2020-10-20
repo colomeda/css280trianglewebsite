@@ -1,0 +1,27 @@
+body {
+    background: #DDDDDD;
+}
+
+.navbar {
+    background-color: gray;
+    color: black;
+}
+
+.page-container {
+    margin-top: 75px;
+}
+
+#triangleLogo {
+    max-width: 75px;
+}
+
+#roseLogo {
+    max-width: 75px;
+}
+
+
+#houseBackground {
+    float: left;
+    width: 100%;
+    height: 30%;
+}
