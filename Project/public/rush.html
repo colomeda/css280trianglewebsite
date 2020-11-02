@@ -12,35 +12,60 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-dark fixed-top">
-    <img id="triangleLogo" src="images/triangle logo.png" alt="triangle logo">
-    <img id="roseLogo" src="images/rose logo.png" alt="Rose-Hulman logo">
-  </nav>
 
-  <div id="rushPage" class="container page-container">
-    <div id="rushTitleText">Triangle Rush</div>
-    <div id="rushInfoText">
-      <p>Men's Greek life rush at Rose-Hulman starts on Monday of the second week of the academic fall quarter and lasts for six weeks. During this time, freshman can learn about all the fraternities including us.</p>
-      <p>Our rush calendar is in the calendar section of our website. If you can, come out to the events during rush so we can get to know you and so you can get to know us.</p>
-    </div>
-    <hr>
-    <div id="rushVideoText">Rush Video</div>
-    <div id="videoContainer" class="container">
-      <div class="row justify-content-center">
-        <iframe width="420" height="345" src="https://www.youtube.com/embed/WFoC3TR5rzI?"></iframe>
+  <div class="bmd-layout-container bmd-drawer-f-r bmd-drawer-overlay">
+    <header class="bmd-layout-header">
+      <div class="navbar navbar-dark bg-faded fixed-top justify-content-between">
+        <a class="navbar-brand" href="#"><img id="triangleLogo" src="images/triangle logo.png" alt="triangle logo"></a>
+        <img id="roseLogo" src="images/rose logo.png" alt="Rose-Hulman logo">
+        <button class="navbar-toggler" type="button" data-toggle="drawer" data-target="#dw-s2">
+          <span class="sr-only">Toggle drawer</span>
+          <i class="material-icons">menu</i>
+        </button>
       </div>
-      <hr>
-      <div id ="rushChairPic" class="row justify-content-center">
-        <img id="rushChairImg" src="images/Ski.jpg" alt="Rose-Hulman logo">
+    </header>
+    <div id="dw-s2" class="bmd-layout-drawer bg-faded">
+      <header>
+        <a class="navbar-brand">Triangle Fraternity</a>
+      </header>
+      <ul class="list-group">
+        <a id="menuHome" class="list-group-item"><i class="material-icons">home</i>Home</a>
+        <a id="menuCalendar" class="list-group-item"><i class="material-icons">book_online</i>Calendar</a>
+        <a id="menuRush" class="list-group-item"><i class="material-icons">people</i>Rush</a>
+        <a id="menuAlumni" class="list-group-item"><i class="material-icons">groups</i>Alumni</a>
+        <a id="menuContactUs" class="list-group-item"><i class="material-icons">mail_outline</i>Contact Us</a>
+        <a id="menuLogin" class="list-group-item"><i class="material-icons">person_add_alt_1</i>Login/SignUp</a>
+        <a id="menuLogout" class="list-group-item"><i class="material-icons">login</i>Logout</a>
+      </ul>
+    </div>
+    <main class="bmd-layout-content">
+      <div id="rushPage" class="container page-container">
+        <div id="rushTitleText">Triangle Rush</div>
+        <div id="rushInfoText">
+          <p>Men's Greek life rush at Rose-Hulman starts on Monday of the second week of the academic fall quarter and lasts for six weeks. During this time, freshman can learn about all the fraternities including us.</p>
+          <p>Our rush calendar is in the calendar section of our website. If you can, come out to the events during rush so we can get to know you and so you can get to know us.</p>
+        </div>
+        <hr>
+        <div id="rushVideoText">Rush Video</div>
+        <div id="videoContainer" class="container">
+          <div class="row justify-content-center">
+            <iframe width="420" height="345" src="https://www.youtube.com/embed/WFoC3TR5rzI?"></iframe>
+          </div>
+          <hr>
+          <div id ="rushChairPic" class="row justify-content-center">
+            <img id="rushChairImg" src="images/Ski.jpg" alt="Rose-Hulman logo">
+          </div>
+        </div>
+        <div id="rushChairText">
+          <p>Our current rush chair is Austin Matuszewski</p>
+          <p>Text/Call: (555) 555-1234</p>
+          <p>Email: matusas@rose-hulman.edu</p>
+          <p>If you have questions or concerns about rush, feel free to contact him directly</p> 
+        </div>
       </div>
-    </div>
-    <div id="rushChairText">
-      <p>Our current rush chair is Austin Matuszewski</p>
-      <p>Text/Call: (555) 555-1234</p>
-      <p>Email: matusas@rose-hulman.edu</p>
-      <p>If you have questions or concerns about rush, feel free to contact him directly</p> 
-    </div>
+    </main>
   </div>
+
   <script src="scripts/jquery.min.js"></script>
   <script src="scripts/popper.js"></script>
   <script src="scripts/bootstrap-material-design.js"></script>

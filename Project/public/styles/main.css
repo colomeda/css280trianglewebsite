@@ -27,6 +27,14 @@ body {
     opacity: .5;
 }
 
+#triangleMembers {
+    width: 100%;
+}
+
+#americanFlags {
+    width: 100%;
+}
+
 .centered {
     position: absolute;
     top: 40%;
@@ -86,4 +94,10 @@ body {
     text-align: center;
     padding: 30px;
     color: #E26B6B;
+}
+
+#updateText {
+    color: #E26B6B;
+    font-size: 3em;
+    text-align: center;
 }

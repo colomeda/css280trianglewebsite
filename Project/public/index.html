@@ -12,19 +12,69 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-dark fixed-top">
-    <img id="triangleLogo" src="images/triangle logo.png" alt="triangle logo">
-    <img id="roseLogo" src="images/rose logo.png" alt="Rose-Hulman logo">
-  </nav>
-  <div class="imageContainer">
-    <img id="houseBackground" src="images/house background.jpg" alt="House background">
-    <div class="centered">TRIANGLE FRATERNITY</div>
-    <div class="underCenter">For engineers, architects, and scientists</div>
-  </div>
-  <div id="mainPage" class="container page-container">
-    
 
+
+  <div class="bmd-layout-container bmd-drawer-f-r bmd-drawer-overlay">
+    <header class="bmd-layout-header">
+      <div class="navbar navbar-dark bg-faded fixed-top justify-content-between">
+        <a class="navbar-brand" href="#"><img id="triangleLogo" src="images/triangle logo.png" alt="triangle logo"></a>
+        <img id="roseLogo" src="images/rose logo.png" alt="Rose-Hulman logo">
+        <button class="navbar-toggler" type="button" data-toggle="drawer" data-target="#dw-s2">
+          <span class="sr-only">Toggle drawer</span>
+          <i class="material-icons">menu</i>
+        </button>
+      </div>
+    </header>
+    <div id="dw-s2" class="bmd-layout-drawer bg-faded">
+      <header>
+        <a class="navbar-brand">Triangle Fraternity</a>
+      </header>
+      <ul class="list-group">
+        <a id="menuHome" class="list-group-item"><i class="material-icons">home</i>Home</a>
+        <a id="menuCalendar" class="list-group-item"><i class="material-icons">book_online</i>Calendar</a>
+        <a id="menuRush" class="list-group-item"><i class="material-icons">people</i>Rush</a>
+        <a id="menuAlumni" class="list-group-item"><i class="material-icons">groups</i>Alumni</a>
+        <a id="menuContactUs" class="list-group-item"><i class="material-icons">mail_outline</i>Contact Us</a>
+        <a id="menuLogin" class="list-group-item"><i class="material-icons">person_add_alt_1</i>Login/SignUp</a>
+        <a id="menuLogout" class="list-group-item"><i class="material-icons">login</i>Logout</a>
+      </ul>
+    </div>
+    <main class="bmd-layout-content">
+      <div class="imageContainer">
+        <img id="houseBackground" src="images/house background.jpg" alt="House background">
+        <div class="centered">TRIANGLE FRATERNITY</div>
+        <div class="underCenter">For engineers, architects, and scientists</div>
+      </div>
+      <hr>
+      <div id="updateText">Updates</div>
+      <div class="container">
+        <div class="row justify-content-start">
+          <div class="col-4">
+            <img id="americanFlags" src="images/American flags.jpg" alt="American flags">
+          </div>
+          <div class="col-8">
+            <div class="date">10/4/2020</div>
+            <div class="updateText">Congrats to the class of 2013 (graduating classes of 2017 and 2016) for winning the fundraiser race! Each member of this class that attends Homecoming 2021 will have their dinner paid for by the fraternity.</div>
+          </div>
+        </div>
+        <hr>
+        <div class="row justify-content-start">
+          <div class="col-4">
+            <img id="triangleMembers" src="images/Triangle members.jpg" alt="Triangle members">
+          </div>
+          <div class="col-8">
+            <div class="date">9/11/2020</div>
+            <div class="updateText">Triangle Fraternity did its annual tradition of sticking small flags throughout the campus quad in front of the library to honor the men and women who lost their lives due to the catastrophic event 19 years ago.</div>
+          </div>
+        </div>
+        <hr>
+      </div>
+    </main>
   </div>
+
+
+
+  
   <script src="scripts/jquery.min.js"></script>
   <script src="scripts/popper.js"></script>
   <script src="scripts/bootstrap-material-design.js"></script>
