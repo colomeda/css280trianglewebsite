@@ -9,6 +9,7 @@ body {
 
 .page-container {
     margin-top: 90px;
+    margin-bottom: 90px;
 }
 
 #triangleLogo {
@@ -181,4 +182,36 @@ input[type=submit]:hover {
     color: #E26B6B;
     font-size: 3em;
     text-align: center;
+}
+
+#crestBackground {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 280px;
+    opacity: .25;
+    transform: translate(-50%, -50%);
+}
+
+.loginInputContainer {
+    vertical-align: middle;
+    text-align: center;
+    margin: 0 auto;
+    padding: 20px;
+    width: 400px;
+}
+
+#logInButtonContainer {
+    display: flex;
+    margin: 0 auto;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.logInButton {
+    text-align: center;
+    background-color: #800000;
+    color: white;
+    width: 150px;
 }
