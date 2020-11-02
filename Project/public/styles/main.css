@@ -27,6 +27,14 @@ body {
     opacity: .5;
 }
 
+#triangleMembers {
+    width: 100%;
+}
+
+#americanFlags {
+    width: 100%;
+}
+
 .centeredHomePage {
     position: absolute;
     top: 40%;
@@ -168,4 +176,9 @@ input[type=submit]:hover {
 
 .inputContainer {
     padding: 20px;
+}
+#updateText {
+    color: #E26B6B;
+    font-size: 3em;
+    text-align: center;
 }
