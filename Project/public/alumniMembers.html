@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
+  <link rel="stylesheet" href="styles/bootstrap-material-design.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700,900|Ubuntu:400,500,700" rel="stylesheet">
+  <link rel="stylesheet" href="styles/main.css">
+  <title>Triangle Fraternity</title>
+</head>
+
+<body>
+
+  <div class="bmd-layout-container bmd-drawer-f-r bmd-drawer-overlay">
+    <header class="bmd-layout-header">
+      <div class="navbar navbar-dark bg-faded fixed-top justify-content-between">
+        <a class="navbar-brand" href="#"><img id="triangleLogo" src="images/triangle logo.png" alt="triangle logo"></a>
+        <img id="roseLogo" src="images/rose logo.png" alt="Rose-Hulman logo">
+        <button class="navbar-toggler" type="button" data-toggle="drawer" data-target="#dw-s2">
+          <span class="sr-only">Toggle drawer</span>
+          <i class="material-icons">menu</i>
+        </button>
+      </div>
+    </header>
+    <div id="dw-s2" class="bmd-layout-drawer bg-faded">
+      <header>
+        <a class="navbar-brand">Triangle Fraternity</a>
+      </header>
+      <ul class="list-group">
+        <a id="menuHome" class="list-group-item"><i class="material-icons">home</i>Home</a>
+        <a id="menuCalendar" class="list-group-item"><i class="material-icons">book_online</i>Calendar</a>
+        <a id="menuRush" class="list-group-item"><i class="material-icons">people</i>Rush</a>
+        <a id="menuAlumni" class="list-group-item"><i class="material-icons">groups</i>Alumni</a>
+        <a id="menuContactUs" class="list-group-item"><i class="material-icons">mail_outline</i>Contact Us</a>
+        <a id="menuLogin" class="list-group-item"><i class="material-icons">person_add_alt_1</i>Login/SignUp</a>
+        <a id="menuLogout" class="list-group-item"><i class="material-icons">login</i>Logout</a>
+      </ul>
+    </div>
+    <main class="bmd-layout-content">
+      <div id="alumniMembersPage" class="container page-container">
+        <div class="midPageHeader">Alumni Page</div>
+        <div class="alumniPageHeader">Select a Member</div>
+        
+        <div id="logInButtonContainer">
+          <button type="button" class="btn alumniMemberButton">Travis Cole Bednarek</button>
+          <button type="button" class="btn alumniMemberButton">Dennis Alexander Colomes</button>
+          <button type="button" class="btn alumniMemberButton">Brevin Scott Lacy</button>
+          <button type="button" class="btn alumniMemberButton">Wyatt James McKibbon</button>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="scripts/jquery.min.js"></script>
+  <script src="scripts/popper.js"></script>
+  <script src="scripts/bootstrap-material-design.js"></script>
+  <script>$("body").bootstrapMaterialDesign();</script>
+  <script src="/__/firebase/7.18.0/firebase-app.js"></script>
+  <script src="/__/firebase/7.18.0/firebase-analytics.js"></script>
+  <script src="/__/firebase/7.18.0/firebase-auth.js"></script>
+  <script src="/__/firebase/7.18.0/firebase-firestore.js"></script>
+  <script src="/__/firebase/init.js"></script>
+  <script src="scripts/main.js"></script>
+</body>
+
+</html>

@@ -150,6 +150,26 @@ body {
     font-family: 'Montserrat', sans-serif;
 }
 
+.midPageBody {
+    margin: 30px auto;
+    text-align: center;
+    color: black;
+    font-size: 2.5em;
+    font-weight: 600;
+    width: 70%;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.alumniPageHeader {
+    margin: 30px auto;
+    text-align: center;
+    color: #E26B6B;
+    font-size: 1em;
+    font-weight: 600;
+    width: 70%;
+    font-family: 'Montserrat', sans-serif;
+}
+
 input[type=text], select, textarea {
     width: 100%;
     padding: 12px;
@@ -214,6 +234,33 @@ input[type=submit]:hover {
     background-color: #800000;
     color: white;
     width: 150px;
+}
+
+.alumniButton {
+    text-align: center;
+    font-size: large;
+    color: black;
+    width: 100%;
+    border: 2px solid grey;
+    padding: 20px;
+    margin: 5px;
+}
+
+.alumniMemberButton {
+    text-align: left;
+    font-size: large;
+    color: black;
+    width: 100%;
+    border: 2px solid grey;
+    padding: 20px;
+    margin: 5px;
+}
+
+.backToHomePageButton {
+    text-align: center;
+    background-color: #800000;
+    color:white;
+    width: 200px;
 }
 
 .wrapper {
