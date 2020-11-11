@@ -215,3 +215,57 @@ input[type=submit]:hover {
     color: white;
     width: 150px;
 }
+
+.wrapper {
+    margin: 10em;                   /* just a temp margin */
+    border: 0.1em solid #ccc;   /* wrap the calendar inside a box */
+    width: 20em;                /* define a width for the box */
+    height: 26em;               /* define a height for the box */
+    box-shadow: 0.1em 0.2em 0.8em #ccc; /* box shadow for better view */
+ 
+  }
+ 
+  .header {
+    height: 4em;                    /* define a height for the header */
+    background-color: #3f51b5;      /* give the header a background color */
+    color: white;                   /* give the header a text color */
+    text-align: center;             /* center the text inside the header */
+  }
+ 
+.calendar-body .col-xs-1 {
+    width: 2.5em;                   /* give each column a fixed width */
+    margin-left: 0.2em;             /* have some space between columnd */
+    text-align: center;             /* align text in the center */
+  }
+
+  .header p {
+    padding-top: 1.3em;             /* vertical centering */
+    text-transform: uppercase;      /* all caps text  */
+  }
+ 
+.inactive {                 /* inactive dates get a light gray text color */
+    color: #ccc;
+}
+ 
+.weekdays { 
+    padding: 1em;           /* giving weekdays some space around */
+}
+ 
+.dates {
+    padding: 0.2em 1em 0.2em 1em;   /* giving dates some space  */
+}
+ 
+.line {                             /* a gray line separator  */
+    height: 0.1em;
+    border: 0.1em solid #EEEEEE;
+}
+ 
+.current-date {                 /* styling the current date section  */
+    text-transform: uppercase;
+    text-align: center;
+    padding-top: 0.5em;
+}
+ 
+.calendar-body .row .col-xs-1 p:hover {
+    color: #4778a6;         /* hover state on all dates  */
+} 
