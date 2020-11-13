@@ -5,12 +5,12 @@ rhit.FB_KEY_EVENT = "event";
 rhit.fbEventsManager = null;
 
 rhit.Event = class {
-	constructor(id, title, location, from, to) {
+	constructor(id, title, location, date, time) {
 		this.id = id;
 		this.title = title;
 		this.location = location;
-		this.from = from;
-		this.to = to;
+		this.date = date;
+		this.time = time;
 	}
 
 }
@@ -302,6 +302,7 @@ rhit.CalendarPageController = class {
 
 			// creating all cells
 			let date = 1;
+			let emptyDate = 0;
 			for (let i = 0; i < 6; i++) {
 				// creates a table row
 				let row = document.createElement("tr");
@@ -313,6 +314,7 @@ rhit.CalendarPageController = class {
 						let cellText = document.createTextNode("");
 						cell.appendChild(cellText);
 						row.appendChild(cell);
+						emptyDate++;
 					}
 					else if (date > daysInMonth) {
 						break;
@@ -320,7 +322,18 @@ rhit.CalendarPageController = class {
 
 					else {
 						let cell = document.createElement("td");
-						cell.onclick = console.log("You clicked me");
+						cell.onclick = function () {
+							var dayNum = 0;
+							var rowIndex = this.parentElement.rowIndex;
+							var cellIndex = this.cellIndex;
+							if (rowIndex == 1) {
+								dayNum = cellIndex + 1 - emptyDate;
+							}
+							else {
+								dayNum = (rowIndex - 1) * 7 + cellIndex + 1 - emptyDate;
+							}
+							console.log("day clicked " + dayNum);
+						}
 						let cellText = document.createTextNode(date);
 						if (date === today.getDate() && year === today.getFullYear() && month === today.getMonth()) {
 							cell.classList.add("current-date");
@@ -381,6 +394,12 @@ rhit.CalendarPageController = class {
 		document.querySelector("#year").addEventListener("change", (event) => {
 			jump();
 		});
+
+		document.querySelector("#submitAddEvent").addEventListener("click", (event) => {
+			const event = document.querySelector("#inputEvent").value;
+			const location = document.querySelector("#inputLocation").value;
+			const date = document.querySelector("#inputDate").value;
+		})
 	}
 }
 
