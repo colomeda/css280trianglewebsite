@@ -12,12 +12,16 @@
 </head>
 
 <body>
-
   <div class="bmd-layout-container bmd-drawer-f-r bmd-drawer-overlay">
     <header class="bmd-layout-header">
       <div class="navbar navbar-dark bg-faded fixed-top justify-content-between">
-        <a class="navbar-brand" href="#"><img id="triangleLogo" src="images/triangle logo.png" alt="triangle logo"></a>
-        <img id="roseLogo" src="images/rose logo.png" alt="Rose-Hulman logo">
+        <a class="navbar-brand" href="#"><img id="triangleLogo" src="images/triangle logo home.png" alt="triangle logo"></a>
+        <button id="homeButton" type="button" class="btn btn-homepage">Home</button>
+        <button id="calendarButton" type="button" class="btn btn-homepage">Calendar</button>
+        <button id="rushButton" type="button" class="btn btn-homepage">Rush</button>
+        <button id="alumniButton" type="button" class="btn btn-homepage">Alumni</button>
+        <button id="contactUsButton" type="button" class="btn btn-homepage">Contact Us</button>
+        <button id="loginButton" type="button" class="btn btn-homepage">Login/Sign Up</button>
         <button class="navbar-toggler" type="button" data-toggle="drawer" data-target="#dw-s2">
           <span class="sr-only">Toggle drawer</span>
           <i class="material-icons">menu</i>
@@ -39,11 +43,7 @@
       </ul>
     </div>
     <main class="bmd-layout-content">
-      <div id="alumniMembersPage" class="container page-container">
-        <div class="midPageHeader">Alumni Page</div>
-        
-        <!-- TODO: Add single member pages -->
-      </div>
+      <div id="alumniIndividualPage" class="container page-container"></div>
     </main>
   </div>
 

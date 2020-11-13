@@ -12,12 +12,16 @@
 </head>
 
 <body>
-
   <div class="bmd-layout-container bmd-drawer-f-r bmd-drawer-overlay">
     <header class="bmd-layout-header">
       <div class="navbar navbar-dark bg-faded fixed-top justify-content-between">
-        <a class="navbar-brand" href="#"><img id="triangleLogo" src="images/triangle logo.png" alt="triangle logo"></a>
-        <img id="roseLogo" src="images/rose logo.png" alt="Rose-Hulman logo">
+        <a class="navbar-brand" href="#"><img id="triangleLogo" src="images/triangle logo home.png" alt="triangle logo"></a>
+        <button id="homeButton" type="button" class="btn btn-homepage">Home</button>
+        <button id="calendarButton" type="button" class="btn btn-homepage">Calendar</button>
+        <button id="rushButton" type="button" class="btn btn-homepage">Rush</button>
+        <button id="alumniButton" type="button" class="btn btn-homepage">Alumni</button>
+        <button id="contactUsButton" type="button" class="btn btn-homepage">Contact Us</button>
+        <button id="loginButton" type="button" class="btn btn-homepage">Login/Sign Up</button>
         <button class="navbar-toggler" type="button" data-toggle="drawer" data-target="#dw-s2">
           <span class="sr-only">Toggle drawer</span>
           <i class="material-icons">menu</i>
@@ -44,17 +48,17 @@
         <div class="alumniPageHeader">Select a Pledge Class Year</div>
         
         <div id="logInButtonContainer">
-          <button type="button" class="btn alumniButton">2020</button>
-          <button type="button" class="btn alumniButton">2019</button>
-          <button type="button" class="btn alumniButton">2018</button>
-          <button type="button" class="btn alumniButton">2017</button>
-          <button type="button" class="btn alumniButton">2016</button>
-          <button type="button" class="btn alumniButton">2015</button>
-          <button type="button" class="btn alumniButton">2014</button>
-          <button type="button" class="btn alumniButton">2013</button>
-          <button type="button" class="btn alumniButton">2012</button>
-          <button type="button" class="btn alumniButton">2011</button>
-          <button type="button" class="btn alumniButton">2010</button>
+          <button data-amount="2020" type="button" class="btn alumniButton">2020</button>
+          <button data-amount="2019" type="button" class="btn alumniButton">2019</button>
+          <button data-amount="2018" type="button" class="btn alumniButton">2018</button>
+          <button data-amount="2017" type="button" class="btn alumniButton">2017</button>
+          <button data-amount="2016" type="button" class="btn alumniButton">2016</button>
+          <button data-amount="2015" type="button" class="btn alumniButton">2015</button>
+          <button data-amount="2014" type="button" class="btn alumniButton">2014</button>
+          <button data-amount="2013" type="button" class="btn alumniButton">2013</button>
+          <button data-amount="2012" type="button" class="btn alumniButton">2012</button>
+          <button data-amount="2011" type="button" class="btn alumniButton">2011</button>
+          <button data-amount="2010" type="button" class="btn alumniButton">2010</button>
         </div>
       </div>
     </main>

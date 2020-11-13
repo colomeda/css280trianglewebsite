@@ -269,11 +269,37 @@ input[type=submit]:hover {
     border:none;
 }
 
+.contactInfoRow {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.contactInfoLabel {
+    margin: auto 0;
+    width: 100px;
+    font-weight: 700;
+}
+
+.contactDiv {
+    margin: 0 auto;
+}
+
+.contactBox {
+    text-align: center;
+    font-size: large;
+    color: black;
+    width: 50vw;
+    border: 2px solid grey;
+    padding: 20px;
+    margin: 5px;
+}
+
 #fab {
     position: fixed;
     right: 10px;
     bottom: 10px;
-    background-color: #800000;
+    background-color: #E26B6B;
     color: white;
     z-index: 999;
 }

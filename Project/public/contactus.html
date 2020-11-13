@@ -46,7 +46,7 @@
       <div id="grayTop">
         <div class="centered">Feel free to ask questions or express concerns</div>
       </div>
-      <div id="mainPage" class="container page-container">
+      <div id="contactUsPage" class="container page-container">
         <div class="personDescription">
           <img id="presidentContactUs" src="images/Brevin.jfif" alt="Triangle President">
           <div class = "descriptionContainer">
@@ -62,9 +62,9 @@
         <div class="midPageHeader">Contact our Executive Board Directly</div>
     
         <div class="inputContainer">
-          <form>
-            <input type="text" id="email" name="email" placeholder="Email">
-            <textarea id="subject" name="subject" placeholder="Insert message here ..." style="height:200px"></textarea>
+          <form action="mailto:colomeda@rose-hulman.edu" method="POST" enctype="text/plain">
+            <input type="text" id="subject" name="subject" placeholder="Email Subject">
+            <textarea id="body" name="body" placeholder="Insert message here ..." style="height:200px"></textarea>
             <input type="submit" value="Submit">
           </form>
         </div>
