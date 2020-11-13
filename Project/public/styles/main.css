@@ -316,3 +316,9 @@ input[type=submit]:hover {
 .calendar-body .row .col-xs-1 p:hover {
     color: #4778a6;         /* hover state on all dates  */
 } 
+
+.btn-homepage {
+    color: #d6d6d6;
+    background-color: transparent;
+    border:none;
+}

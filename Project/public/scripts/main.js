@@ -31,6 +31,24 @@ rhit.ClassName = class {
 /** function and class syntax examples */
 rhit.main = function () {
 	console.log("Ready");
+	document.querySelector('#homeButton').onclick = (event) => {
+		window.location.href = "/index.html";
+	}
+	document.querySelector('#calendarButton').onclick = (event) => {
+		window.location.href = "/calendar.html";
+	}
+	document.querySelector('#rushButton').onclick = (event) => {
+		window.location.href = "/rush.html";
+	}
+	document.querySelector('#alumniButton').onclick = (event) => {
+		window.location.href = "/alumni.html";
+	}
+	document.querySelector('#contactUsButton').onclick = (event) => {
+		window.location.href = "/contactus.html";
+	}
+	document.querySelector('#loginButton').onclick = (event) => {
+		window.location.href = "/login.html";
+	}
 };
 
 rhit.main();

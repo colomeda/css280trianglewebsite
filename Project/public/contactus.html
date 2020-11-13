@@ -11,38 +11,67 @@
   <title>Triangle Fraternity</title>
 </head>
 
-<body>
-  <nav class="navbar navbar-dark fixed-top">
-    <img id="triangleLogo" src="images/triangle logo.png" alt="triangle logo">
-    <img id="roseLogo" src="images/rose logo.png" alt="Rose-Hulman logo">
-  </nav>
-  <div id="grayTop">
-    <div class="centered">Feel free to ask questions or express concerns</div>
-  </div>
-  <div id="mainPage" class="container page-container">
-    <div class="personDescription">
-      <img id="presidentContactUs" src="images/Brevin.jfif" alt="Triangle President">
-      <div class = "descriptionContainer">
-        <p class="textDescription">Our current president is Brevin Lacy<br><br>Text/Call: (555) 555-1234<br>Email: lacybs@rose-hulman.edu</p>
+<body> 
+  <div class="bmd-layout-container bmd-drawer-f-r bmd-drawer-overlay">
+    <header class="bmd-layout-header">
+      <div class="navbar navbar-dark bg-faded fixed-top justify-content-between">
+        <a class="navbar-brand" href="#"><img id="triangleLogo" src="images/triangle logo home.png" alt="triangle logo"></a>
+        <button id="homeButton" type="button" class="btn btn-homepage">Home</button>
+        <button id="calendarButton" type="button" class="btn btn-homepage">Calendar</button>
+        <button id="rushButton" type="button" class="btn btn-homepage">Rush</button>
+        <button id="alumniButton" type="button" class="btn btn-homepage">Alumni</button>
+        <button id="contactUsButton" type="button" class="btn btn-homepage">Contact Us</button>
+        <button id="loginButton" type="button" class="btn btn-homepage">Login/Sign Up</button>
+        <button class="navbar-toggler" type="button" data-toggle="drawer" data-target="#dw-s2">
+          <span class="sr-only">Toggle drawer</span>
+          <i class="material-icons">menu</i>
+        </button>
       </div>
+    </header>
+    <div id="dw-s2" class="bmd-layout-drawer bg-faded">
+      <header>
+        <a class="navbar-brand">Triangle Fraternity</a>
+      </header>
+      <ul class="list-group">
+        <a id="menuHome" class="list-group-item"><i class="material-icons">home</i>Home</a>
+        <a id="menuCalendar" class="list-group-item"><i class="material-icons">book_online</i>Calendar</a>
+        <a id="menuRush" class="list-group-item"><i class="material-icons">people</i>Rush</a>
+        <a id="menuAlumni" class="list-group-item"><i class="material-icons">groups</i>Alumni</a>
+        <a id="menuContactUs" class="list-group-item"><i class="material-icons">mail_outline</i>Contact Us</a>
+        <a id="menuLogin" class="list-group-item"><i class="material-icons">person_add_alt_1</i>Login/SignUp</a>
+        <a id="menuLogout" class="list-group-item"><i class="material-icons">login</i>Logout</a>
+      </ul>
     </div>
-    <div class="personDescription">
-      <div class = "descriptionContainer">
-        <p class="textDescription">Our current president is Brevin Lacy<br><br>Text/Call: (555) 555-1234<br>Email: lacybs@rose-hulman.edu</p>
+    <main class="bmd-layout-content">
+      <div id="grayTop">
+        <div class="centered">Feel free to ask questions or express concerns</div>
       </div>
-      <img id="rushChairContactUs" src="images/Ski.jpg" alt="Triangle President">
-    </div>
-    <div class="midPageHeader">Contact our Executive Board Directly</div>
-
-    <div class="inputContainer">
-      <form>
-        <input type="text" id="email" name="email" placeholder="Email">
-        <textarea id="subject" name="subject" placeholder="Insert message here ..." style="height:200px"></textarea>
-        <input type="submit" value="Submit">
-      </form>
-    </div>
-
+      <div id="mainPage" class="container page-container">
+        <div class="personDescription">
+          <img id="presidentContactUs" src="images/Brevin.jfif" alt="Triangle President">
+          <div class = "descriptionContainer">
+            <p class="textDescription">Our current president is Brevin Lacy<br><br>Text/Call: (555) 555-1234<br>Email: lacybs@rose-hulman.edu</p>
+          </div>
+        </div>
+        <div class="personDescription">
+          <div class = "descriptionContainer">
+            <p class="textDescription">Our current president is Brevin Lacy<br><br>Text/Call: (555) 555-1234<br>Email: lacybs@rose-hulman.edu</p>
+          </div>
+          <img id="rushChairContactUs" src="images/Ski.jpg" alt="Triangle President">
+        </div>
+        <div class="midPageHeader">Contact our Executive Board Directly</div>
+    
+        <div class="inputContainer">
+          <form>
+            <input type="text" id="email" name="email" placeholder="Email">
+            <textarea id="subject" name="subject" placeholder="Insert message here ..." style="height:200px"></textarea>
+            <input type="submit" value="Submit">
+          </form>
+        </div>
+      </div>
+    </main>
   </div>
+
   <script src="scripts/jquery.min.js"></script>
   <script src="scripts/popper.js"></script>
   <script src="scripts/bootstrap-material-design.js"></script>
