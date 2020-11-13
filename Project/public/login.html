@@ -12,27 +12,59 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-dark fixed-top">
-    <img id="triangleLogo" src="images/triangle logo.png" alt="triangle logo">
-    <img id="roseLogo" src="images/rose logo.png" alt="Rose-Hulman logo">
-  </nav>
-  <div id="mainPage" class="container page-container">
-
-    <img id="crestBackground" src="images/triangle crest.png" alt="triangle_crest">
-    <div class="midPageHeader">Log in</div>
-
-    <div class="loginInputContainer">
-      <form>
-        <input type="text" id="email" name="email" placeholder="Email">
-        <input type="text" id="password" name="password" placeholder="Password">
-      </form>
+  <div class="bmd-layout-container bmd-drawer-f-r bmd-drawer-overlay">
+    <header class="bmd-layout-header">
+      <div class="navbar navbar-dark bg-faded fixed-top justify-content-between">
+        <a class="navbar-brand" href="#"><img id="triangleLogo" src="images/triangle logo home.png" alt="triangle logo"></a>
+        <button id="homeButton" type="button" class="btn btn-homepage">Home</button>
+        <button id="calendarButton" type="button" class="btn btn-homepage">Calendar</button>
+        <button id="rushButton" type="button" class="btn btn-homepage">Rush</button>
+        <button id="alumniButton" type="button" class="btn btn-homepage">Alumni</button>
+        <button id="contactUsButton" type="button" class="btn btn-homepage">Contact Us</button>
+        <button id="loginButton" type="button" class="btn btn-homepage">Login/Sign Up</button>
+        <button class="navbar-toggler" type="button" data-toggle="drawer" data-target="#dw-s2">
+          <span class="sr-only">Toggle drawer</span>
+          <i class="material-icons">menu</i>
+        </button>
+      </div>
+    </header>
+    <div id="dw-s2" class="bmd-layout-drawer bg-faded">
+      <header>
+        <a class="navbar-brand">Triangle Fraternity</a>
+      </header>
+      <ul class="list-group">
+        <a id="menuHome" class="list-group-item"><i class="material-icons">home</i>Home</a>
+        <a id="menuCalendar" class="list-group-item"><i class="material-icons">book_online</i>Calendar</a>
+        <a id="menuRush" class="list-group-item"><i class="material-icons">people</i>Rush</a>
+        <a id="menuAlumni" class="list-group-item"><i class="material-icons">groups</i>Alumni</a>
+        <a id="menuContactUs" class="list-group-item"><i class="material-icons">mail_outline</i>Contact Us</a>
+        <a id="menuLogin" class="list-group-item"><i class="material-icons">person_add_alt_1</i>Login/SignUp</a>
+        <a id="menuLogout" class="list-group-item"><i class="material-icons">login</i>Logout</a>
+        <form action="https://www.paypal.com/donate" method="post" target="_top">
+          <input type="hidden" name="cmd" value="_donations" />
+          <input type="hidden" name="business" value="L8S42LZ7VBSAE" />
+          <input type="hidden" name="currency_code" value="USD" />
+          <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_SM.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+          <img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1" />
+        </form>
+      </ul>
     </div>
-    <div id="logInButtonContainer">
-      <button type="button" class="btn logInButton">Login</button>
-      <button type="button" class="btn logInButton">Sign Up</button>
-    </div>
-    
-
+    <main class="bmd-layout-content">
+      <div id="logInPage" class="container page-container">
+        <img id="crestBackground" src="images/triangle crest.png" alt="triangle_crest">
+        <div class="midPageHeader">Log in</div>
+        <div class="loginInputContainer">
+          <form>
+            <input type="text" id="email" name="email" placeholder="Email">
+            <input type="password" id="password" name="password" placeholder="Password">
+          </form>
+        </div>
+        <div id="logInButtonContainer">
+          <button id="logInButton" type="button" class="btn logInButton">Login</button>
+          <button id="signInButton" type="button" class="btn logInButton">Sign Up</button>
+        </div>
+      </div>
+    </main>
   </div>
   <script src="scripts/jquery.min.js"></script>
   <script src="scripts/popper.js"></script>

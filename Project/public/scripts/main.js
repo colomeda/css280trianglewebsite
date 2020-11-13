@@ -41,38 +41,56 @@ rhit.FbAuthManager = class {
 	constructor() {
 		this._user = null;
 	}
+
 	beginListening(changeListener) {
 		firebase.auth().onAuthStateChanged((user) => {
 			this._user = user;
 			changeListener();
 		});
 	}
-	signIn() {
-		Rosefire.signIn("06a69212-51a1-479f-8658-b257110bb6c8", (err, rfUser) => {
-			if (err) {
-				console.log("Rosefire error!", err);
-				return;
-			}
-			console.log("Rosefire success!", rfUser);
-			firebase.auth().signInWithCustomToken(rfUser.token).catch(function (error) {
+
+	signIn(email, password) {
+		return firebase.auth().signInWithEmailAndPassword(email, password)
+			.then((event) => {
+				console.log("Logged in");
+				window.location.href = "/index.html";
+			}).catch(function (error) {
 				// Handle Errors here.
-				const errorCode = error.code;
-				const errorMessage = error.message;
-				console.error("Log in error ", errorCode, errorMessage);
+				var errorCode = error.code;
+				var errorMessage = error.message;
+				console.log("Log in error ", errorCode, errorMessage);
+				alert("LOG IN ERROR");
 				// ...
 			});
-		});
 	}
+
+	createUser(email, password) {
+		return firebase.auth().createUserWithEmailAndPassword(email, password)
+			.then((event) => {
+				console.log("Created user");
+				window.location.href = "/index.html";
+			}).catch(function (error) {
+				// Handle Errors here.
+				var errorCode = error.code;
+				var errorMessage = error.message;
+				console.log("Create acct error ", errorCode, errorMessage);
+				alert("SIGN UP ERROR");
+				// ...
+			});
+	}
+
 	signOut() {
-		firebase.auth().signOut().catch((error) => {
-			console.log("Sign out error");
-		});
+		firebase.auth().signOut()
+			.then((event) => {
+				window.location.href = "/index.html";
+			})
+			.catch((error) => {
+				console.log("Sign out error");
+			});
 	}
+
 	get isSignedIn() {
-		return true;
-	}
-	get uid() {
-		return this._user.uid;
+		return !!this._user;
 	}
 }
 
@@ -408,6 +426,56 @@ rhit.initializePage = function () {
 		console.log("you are on the calendar page");
 		new rhit.CalendarPageController();
 	}
+
+	if (document.querySelector('#alumniPledgeClassesPage')) {
+		console.log("On pledge classes page");
+		new rhit.PledgeClassPageController();
+	}
+
+	if (document.querySelector('#alumniMembersPage')) {
+		console.log("On members page");
+		const queryString = window.location.search;
+		const urlParams = new URLSearchParams(queryString);
+		const year = urlParams.get("year");
+		rhit.fbAlumniManager = new rhit.FbAlumniManager(year);
+		new rhit.PledgeYearController();
+	}
+
+	if (document.querySelector('#alumniIndividualPage')) {
+		console.log("On individual page");
+		const queryString = window.location.search;
+		const urlParams = new URLSearchParams(queryString);
+		const id = urlParams.get("id");
+		rhit.fbSingleAlumManager = new rhit.FbSingleAlumManager(id);
+		new rhit.IndividualMemberPageController();
+	}
+
+	if (document.querySelector('#logInPage')) {
+		console.log("On login page");
+		document.querySelector(".logInButton").onclick = (event) => {
+			rhit.fbAuthManager.signIn(document.querySelector("#email").value, document.querySelector("#password").value);
+		}
+		document.querySelector("#signInButton").onclick = (params) => {
+			window.location.href = "/signup.html";
+		}
+	}
+
+	if (document.querySelector('#signupPage')) {
+		console.log("On signup page");
+		document.querySelector("#signUpButton").onclick = (event) => {
+			rhit.fbAuthManager.createUser(document.querySelector("#email").value, document.querySelector("#password").value);
+		}
+	}
+
+	if (document.querySelector('#alumniNotLoggedInPage')) {
+		console.log("Tried to access alumni page not logged in");
+		document.querySelector("#logInButton").onclick = (event) => {
+			window.location.href = "/login.html";
+		}
+		document.querySelector("#signUpButton").onclick = (event) => {
+			window.location.href = "/signup.html";
+		}
+	}
 }
 
 rhit.FbSingleAlumManager = class {
@@ -460,6 +528,18 @@ rhit.main = function () {
 	rhit.fbAuthManager = new rhit.FbAuthManager();
 	rhit.fbAuthManager.beginListening(() => {
 		console.log("isSignedIn = ", this.fbAuthManager.isSignedIn);
+		if (this.fbAuthManager.isSignedIn) {
+			const button = document.querySelector('#loginButton');
+			button.innerHTML = "Logout";
+			button.onclick = (event) => {
+				this.fbAuthManager.signOut();
+			}
+		} else {
+			document.querySelector('#loginButton').onclick = (event) => {
+				window.location.href = "/login.html";
+			}
+		}
+
 		rhit.checkForRedirects();
 	});
 
@@ -478,34 +558,9 @@ rhit.main = function () {
 	document.querySelector('#contactUsButton').onclick = (event) => {
 		window.location.href = "/contactus.html";
 	}
-	document.querySelector('#loginButton').onclick = (event) => {
-		window.location.href = "/login.html";
-	}
 
 	rhit.initializePage();
 
-	if (document.querySelector('#alumniPledgeClassesPage')) {
-		console.log("On pledge classes page");
-		new rhit.PledgeClassPageController();
-	}
-
-	if (document.querySelector('#alumniMembersPage')) {
-		console.log("On members page");
-		const queryString = window.location.search;
-		const urlParams = new URLSearchParams(queryString);
-		const year = urlParams.get("year");
-		rhit.fbAlumniManager = new rhit.FbAlumniManager(year);
-		new rhit.PledgeYearController();
-	}
-
-	if (document.querySelector('#alumniIndividualPage')) {
-		console.log("On individual page");
-		const queryString = window.location.search;
-		const urlParams = new URLSearchParams(queryString);
-		const id = urlParams.get("id");
-		rhit.fbSingleAlumManager = new rhit.FbSingleAlumManager(id);
-		new rhit.IndividualMemberPageController();
-	}
 };
 
 rhit.main();
