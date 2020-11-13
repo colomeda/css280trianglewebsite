@@ -1,7 +1,11 @@
 var rhit = rhit || {};
 
-rhit.FB_COLLECTION_EVENT = "Events";
+rhit.FB_COLLECTION_EVENT = "events";
+rhit.FB_KEY_EVENTTYPE = "eventType"
 rhit.FB_KEY_EVENT = "event";
+rhit.FB_KEY_LOCATION = "location";
+rhit.FB_KEY_DATE = "date";
+rhit.FB_KEY_TIME = "time";
 rhit.fbEventsManager = null;
 
 rhit.Event = class {
@@ -274,157 +278,234 @@ rhit.IndividualMemberPageController = class {
 rhit.CalendarPageController = class {
 	constructor() {
 
-		let today = new Date();
-		let currentMonth = today.getMonth();
-		let currentYear = today.getFullYear();
-		let selectYear = document.getElementById("year");
-		let selectMonth = document.getElementById("month");
+		this.today = new Date();
+		this.currentMonth = this.today.getMonth();
+		this.currentYear = this.today.getFullYear();
+		this.selectYear = document.getElementById("year");
+		this.selectMonth = document.getElementById("month");
+		this._ref = firebase.firestore().collection(rhit.FB_COLLECTION_EVENT);
+		this._documentSnapshots = null;
+		this.modal = document.getElementById("myModal");
+		this.span = document.getElementsByClassName("close")[0];
+		this.monthAndYear = document.getElementById("monthAndYear");
 
-		let months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+		this.months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
-		function next() {
-			currentYear = (currentMonth === 11) ? currentYear + 1 : currentYear;
-			currentMonth = (currentMonth + 1) % 12;
-			showCalendar(currentMonth, currentYear);
+		this.span.onclick = function() {
+			this.modal.style.display = "none";
 		}
-
-		function previous() {
-			currentYear = (currentMonth === 0) ? currentYear - 1 : currentYear;
-			currentMonth = (currentMonth === 0) ? 11 : currentMonth - 1;
-			showCalendar(currentMonth, currentYear);
-		}
-
-		function jump() {
-			currentYear = parseInt(selectYear.value);
-			currentMonth = parseInt(selectMonth.value);
-			showCalendar(currentMonth, currentYear);
-		}
-
-		let monthAndYear = document.getElementById("monthAndYear");
-		showCalendar(currentMonth, currentYear);
-
-		function showCalendar(month, year) {
-
-			let firstDay = (new Date(year, month)).getDay();
-			let daysInMonth = 32 - new Date(year, month, 32).getDate();
-
-			let tbl = document.getElementById("calendar-body"); // body of the calendar
-
-			// clearing all previous cells
-			tbl.innerHTML = "";
-
-			// filing data about month and in the page via DOM.
-			monthAndYear.innerHTML = months[month] + " " + year;
-			selectYear.value = year;
-			selectMonth.value = month;
-
-			// creating all cells
-			let date = 1;
-			let emptyDate = 0;
-			for (let i = 0; i < 6; i++) {
-				// creates a table row
-				let row = document.createElement("tr");
-
-				//creating individual cells, filing them up with data.
-				for (let j = 0; j < 7; j++) {
-					if (i === 0 && j < firstDay) {
-						let cell = document.createElement("td");
-						let cellText = document.createTextNode("");
-						cell.appendChild(cellText);
-						row.appendChild(cell);
-						emptyDate++;
-					}
-					else if (date > daysInMonth) {
-						break;
-					}
-
-					else {
-						let cell = document.createElement("td");
-						cell.onclick = function () {
-							var dayNum = 0;
-							var rowIndex = this.parentElement.rowIndex;
-							var cellIndex = this.cellIndex;
-							if (rowIndex == 1) {
-								dayNum = cellIndex + 1 - emptyDate;
-							}
-							else {
-								dayNum = (rowIndex - 1) * 7 + cellIndex + 1 - emptyDate;
-							}
-							console.log("day clicked " + dayNum);
-						}
-						let cellText = document.createTextNode(date);
-						if (date === today.getDate() && year === today.getFullYear() && month === today.getMonth()) {
-							cell.classList.add("current-date");
-						} // color today's date
-						cell.appendChild(cellText);
-						row.appendChild(cell);
-						date++;
-					}
-
-
-				}
-
-				tbl.appendChild(row); // appending each row into calendar body.
+	
+		window.onclick = function(event) {
+			if (event.target == this.modal) {
+				this.modal.style.display = "none";
 			}
-
 		}
 
 		document.querySelector("#menuHome").addEventListener("click", (event) => {
 			window.location.href = "/index.html";
 		});
-
+	
 		document.querySelector("#menuCalendar").addEventListener("click", (event) => {
 			window.location.href = "/calendar.html";
 		});
-
+	
 		document.querySelector("#menuRush").addEventListener("click", (event) => {
 			window.location.href = "/rush.html";
 		});
-
+	
 		document.querySelector("#menuAlumni").addEventListener("click", (event) => {
 			window.location.href = "/alumni.html";
 		});
-
+	
 		document.querySelector("#menuContactUs").addEventListener("click", (event) => {
 			window.location.href = "/contactus.html";
 		});
-
+	
 		document.querySelector("#menuLogin").addEventListener("click", (event) => {
 			window.location.href = "/login.html";
 		});
-
+	
 		document.querySelector("#menuLogout").addEventListener("click", (event) => {
 			window.location.href = "/index.html";
 		});
-
+	
 		document.querySelector("#previous").addEventListener("click", (event) => {
-			previous();
+			this.previous();
 		});
-
+	
 		document.querySelector("#next").addEventListener("click", (event) => {
-			next();
+			this.next();
 		});
-
+	
 		document.querySelector("#month").addEventListener("change", (event) => {
 			jump();
 		});
-
+	
 		document.querySelector("#year").addEventListener("change", (event) => {
 			jump();
 		});
-
+	
 		document.querySelector("#submitAddEvent").addEventListener("click", (event) => {
-			const event = document.querySelector("#inputEvent").value;
+			const eventType = document.getElementById("eventType").value;
+			const eventTitle = document.querySelector("#inputEvent").value;
 			const location = document.querySelector("#inputLocation").value;
 			const date = document.querySelector("#inputDate").value;
+			const time = document.querySelector("#inputTime").value;
+			console.log(eventType);
+			rhit.fbEventsManager.add(eventType, eventTitle, location, date, time)
 		})
+	}
+
+	next() {
+		this.currentYear = (this.currentMonth === 11) ? this.currentYear + 1 : this.currentYear;
+		this.currentMonth = (this.currentMonth + 1) % 12;
+		this.showCalendar(this.currentMonth, this.currentYear);
+	}
+
+	previous() {
+		this.currentYear = (this.currentMonth === 0) ? this.currentYear - 1 : this.currentYear;
+		this.currentMonth = (this.currentMonth === 0) ? 11 : this.currentMonth - 1;
+		this.showCalendar(this.currentMonth, this.currentYear);
+	}
+
+	jump() {
+		this.currentYear = parseInt(selectYear.value);
+		this.currentMonth = parseInt(selectMonth.value);
+		this.showCalendar(currentMonth, currentYear);
+	}
+
+	showEvents(date) {
+		
+	}
+
+	showCalendar(month, year) {
+
+		console.log(month, year);
+
+		let firstDay = (new Date(year, month)).getDay();
+		let daysInMonth = 32 - new Date(year, month, 32).getDate();
+
+		let tbl = document.getElementById("calendar-body"); // body of the calendar
+
+		// clearing all previous cells
+		tbl.innerHTML = "";
+
+		// filing data about month and in the page via DOM.
+		this.monthAndYear.innerHTML = this.months[month] + " " + year;
+		this.selectYear.value = year;
+		this.selectMonth.value = month;
+
+		// creating all cells
+		let date = 1;
+		let emptyDate = 0;
+		for (let i = 0; i < 6; i++) {
+			// creates a table row
+			let row = document.createElement("tr");
+
+			//creating individual cells, filing them up with data.
+			for (let j = 0; j < 7; j++) {
+				if (i === 0 && j < firstDay) {
+					let cell = document.createElement("td");
+					let cellText = document.createTextNode("");
+					cell.appendChild(cellText);
+					row.appendChild(cell);
+					emptyDate++;
+				}
+				else if (date > daysInMonth) {
+					break;
+				}
+
+				else {
+					let cell = document.createElement("td");
+					let actualMonth = this.currentMonth + 1;
+					let exactDate = this.currentYear.toString() + "-" + actualMonth.toString() + "-" + date;
+					cell.onclick = function () {
+						var dayNum = 0;
+						var rowIndex = this.parentElement.rowIndex;
+						var cellIndex = this.cellIndex;
+						if (rowIndex == 1) {
+							dayNum = cellIndex + 1 - emptyDate;
+						}
+						else {
+							dayNum = (rowIndex - 1) * 7 + cellIndex + 1 - emptyDate;
+						}
+						console.log("day clicked " + dayNum);
+						console.log(exactDate);
+						//this.modal.style.display = "block";
+						let query = this._ref
+						.where(rhit.FB_KEY_DATE, "==", exactDate)
+						.onSnapshot((querySnapshot) => {
+							this._documentSnapshots = querySnapshot.docs;
+							querySnapshot.forEach((doc) => {
+								console.log(doc.data());
+							});
+						});
+					}
+					let cellText = document.createTextNode(date);
+					if (date === this.today.getDate() && this.year === this.today.getFullYear() && this.month === this.today.getMonth()) {
+						cell.classList.add("current-date");
+					} // color today's date
+					let cellActiveEvent = document.createElement("div");
+					let cellAlumniEvent = document.createElement("div");
+					let cellRushEvent = document.createElement("div");
+					let cellPhilEvent = document.createElement("div");
+					cellActiveEvent.classList.add("active-event");
+					cellAlumniEvent.classList.add("alumni-event");
+					cellRushEvent.classList.add("rush-event");
+					cellPhilEvent.classList.add("philanthropy-event");
+					cell.appendChild(cellText);
+					cell.appendChild(cellActiveEvent);
+					cell.appendChild(cellAlumniEvent);
+					cell.appendChild(cellRushEvent);
+					cell.appendChild(cellPhilEvent);
+					row.appendChild(cell);
+					date++;
+				}
+
+
+			}
+
+			tbl.appendChild(row); // appending each row into calendar body.
+		}
+	}
+}
+
+rhit.FbEventsManager = class {
+	constructor() {
+		this._documentSnapshots = [];
+		this._ref = firebase.firestore().collection(rhit.FB_COLLECTION_EVENT);
+		this._unsubscribe = null;
+	}
+
+	add(eventType, eventTitle, location, date, time) {
+		console.log(eventType, eventTitle, location, date, time);
+
+		this._ref.add({
+		[rhit.FB_KEY_EVENTTYPE]: eventType,
+		[rhit.FB_KEY_EVENT]: eventTitle,
+		[rhit.FB_KEY_LOCATION]: location,
+		[rhit.FB_KEY_DATE]: date,
+		[rhit.FB_KEY_TIME]: time,
+		}).then(function (docRef) {
+			console.log("Document written with ID: ", docRef.id);
+		}).catch(function (error) {
+			console.log("Error adding document: ", error);
+		})
+	}
+
+	beginListening(changeListener) {
+		this._unsubscribe = this._ref.orderBy(rhit.FB_KEY_DATE, "desc")
+		.limit(100)
+		.where(rhit.FB_KEY_DATE, "==", )
 	}
 }
 
 rhit.initializePage = function () {
 	if (document.querySelector("#calendarPage")) {
 		console.log("you are on the calendar page");
-		new rhit.CalendarPageController();
+		rhit.fbEventsManager = new rhit.FbEventsManager();
+		var pageController = new rhit.CalendarPageController();
+		pageController.showCalendar(pageController.currentMonth, pageController.currentYear);
 	}
 
 	if (document.querySelector('#alumniPledgeClassesPage')) {

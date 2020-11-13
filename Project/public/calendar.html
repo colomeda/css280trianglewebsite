@@ -150,7 +150,7 @@
     <i class="material-icons">add</i>
   </button>
 
-  <!-- Modal -->
+  <!-- Fab Modal -->
   <div class="modal fade" id="addEvent" tabindex="-1" role="dialog" aria-labelledby="Add event" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
@@ -162,7 +162,7 @@
           <div class="form-group align-items-center">
             <div class="col-auto my-1">
               <label class="mr-sm-2" for="inlineFormCustomSelect">Event type</label>
-              <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+              <select class="custom-select mr-sm-2" id="eventType">
                 <option selected>Choose...</option>
                 <option value="1">Active</option>
                 <option value="2">Alumni</option>
@@ -181,10 +181,11 @@
             <input type="text" class="form-control" id="inputLocation">
             <span class="bmd-help">Where is the event taking place?</span>
           </div>
-          <div class="form-group bmd-form-group">
-            <label for="formGroupExampleInput2" class="bmd-label-floating">Date</label>
-            <input type="text" class="form-control" id="inputDate">
-            <span class="bmd-help">What is the date of the event?</span>
+          <div class="form-group row">
+            <label for="example-date-input" class="col-2 col-form-label">Date</label>
+            <div class="col-10">
+              <input class="form-control" type="date" value="2011-08-19" id="inputDate">
+            </div>
           </div>
           <div class="form-group bmd-form-group">
             <label for="formGroupExampleInput2" class="bmd-label-floating">Time</label>
@@ -200,6 +201,18 @@
       </div>
     </div>
   </div>
+  </div>
+
+  <!-- The Modal -->
+<div id="myModal" class="my-modal">
+
+  <!-- Modal content -->
+  <div class="my-modal-content">
+    <span class="close">&times;</span>
+    <div>No events created</div>
+  </div>
+
+</div>
 
 
 
