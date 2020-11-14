@@ -7,17 +7,12 @@ rhit.FB_KEY_LOCATION = "location";
 rhit.FB_KEY_DATE = "date";
 rhit.FB_KEY_TIME = "time";
 rhit.fbEventsManager = null;
-
-rhit.Event = class {
-	constructor(id, title, location, date, time) {
-		this.id = id;
-		this.title = title;
-		this.location = location;
-		this.date = date;
-		this.time = time;
-	}
-
-}
+rhit.FbSingleEventManager = null; 
+rhit.eventDates = [];
+rhit.eventTypes = [];
+today = new Date();
+currentMonth = this.today.getMonth();
+currentYear = this.today.getFullYear();
 
 rhit.FB_COLLECTION_ALUMNI = "alumni";
 rhit.FB_KEY_FULL_NAME = "full_name";
@@ -277,7 +272,6 @@ rhit.IndividualMemberPageController = class {
 
 rhit.CalendarPageController = class {
 	constructor() {
-
 		this.today = new Date();
 		this.currentMonth = this.today.getMonth();
 		this.currentYear = this.today.getFullYear();
@@ -288,14 +282,15 @@ rhit.CalendarPageController = class {
 		this.modal = document.getElementById("myModal");
 		this.span = document.getElementsByClassName("close")[0];
 		this.monthAndYear = document.getElementById("monthAndYear");
+		
 
 		this.months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
-		this.span.onclick = function() {
+		this.span.onclick = (event) => {
 			this.modal.style.display = "none";
 		}
 	
-		window.onclick = function(event) {
+		window.onclick = (event) => {
 			if (event.target == this.modal) {
 				this.modal.style.display = "none";
 			}
@@ -338,11 +333,11 @@ rhit.CalendarPageController = class {
 		});
 	
 		document.querySelector("#month").addEventListener("change", (event) => {
-			jump();
+			this.jump();
 		});
 	
 		document.querySelector("#year").addEventListener("change", (event) => {
-			jump();
+			this.jump();
 		});
 	
 		document.querySelector("#submitAddEvent").addEventListener("click", (event) => {
@@ -353,7 +348,7 @@ rhit.CalendarPageController = class {
 			const time = document.querySelector("#inputTime").value;
 			console.log(eventType);
 			rhit.fbEventsManager.add(eventType, eventTitle, location, date, time)
-		})
+		});
 	}
 
 	next() {
@@ -371,21 +366,85 @@ rhit.CalendarPageController = class {
 	jump() {
 		this.currentYear = parseInt(selectYear.value);
 		this.currentMonth = parseInt(selectMonth.value);
-		this.showCalendar(currentMonth, currentYear);
+		this.showCalendar(this.currentMonth, this.currentYear);
 	}
 
-	showEvents(date) {
+	updateList() {
+		if(rhit.fbEventsManager.length == 0) {
+			const newList = htmlToElement('<div id="eventContainer">No Events Added</div>');
+
+			const oldList = document.querySelector("#eventContainer");
+			oldList.removeAttribute("id");
+			oldList.hidden = true;
+			oldList.parentElement.appendChild(newList);
+		} else {
+			const newList = htmlToElement('<div id="eventContainer"></div>');
+			for (let i = 0; i < rhit.fbEventsManager.length; i++) {
+				const event = rhit.fbEventsManager.getEventAtIndex(i);
+				const newCard = this._createCard(event);
+				newList.appendChild(newCard);
+			}
+
+			const oldList = document.querySelector("#eventContainer");
+			oldList.removeAttribute("id");
+			oldList.hidden = true;
+			oldList.parentElement.appendChild(newList);
+		}
+	}
+
+	updateCalendar() {
+		for (let i = 0; i < rhit.fbEventsManager.length; i++) {
+			const event = rhit.fbEventsManager.getEventAtIndex(i);
+			rhit.eventDates.push(event.date);
+			rhit.eventTypes.push(event.type);
+		}
+		this.showCalendar(this.currentMonth, this.currentYear);
 		
 	}
 
-	showCalendar(month, year) {
+	_createCard(event) {
+		return htmlToElement(`<div class="card">
+        <div class="card-body">
+          <h5 class="card-title">${event.title}</h5>
+		  <h6 class="card-subtitle mb-2 text-muted">${event.type}</h6>
+		  <h6 class="card-subtitle mb-2 text-muted">${event.location}</h6>
+		  <h6 class="card-subtitle mb-2 text-muted">${event.date}</h6>
+		  <h6 class="card-subtitle mb-2 text-muted">${event.time}</h6>
+        </div>
+      </div>`);
+	}
 
-		console.log(month, year);
+	getDate(event) {
+		
+	}
 
+	showEvents(date) {
+		this.modal.style.display = "block";
+	}
+
+	startListen(month, year) {
 		let firstDay = (new Date(year, month)).getDay();
 		let daysInMonth = 32 - new Date(year, month, 32).getDate();
-
 		let tbl = document.getElementById("calendar-body"); // body of the calendar
+		let actualMonth = this.currentMonth + 1;
+		let firstOfMonth = this.currentYear.toString() + "-" + actualMonth.toString() + "-" + "0" + 1;
+		let lastOfMonth = this.currentYear.toString() + "-" + actualMonth.toString() + "-" + daysInMonth;
+
+		console.log(firstOfMonth);
+		console.log(lastOfMonth);
+
+		rhit.fbEventsManager.beginListeningCalendar(this.updateCalendar.bind(this), firstOfMonth, lastOfMonth);
+	}
+
+	showCalendar(month, year) {
+		let firstDay = (new Date(year, month)).getDay();
+		let daysInMonth = 32 - new Date(year, month, 32).getDate();
+		let tbl = document.getElementById("calendar-body"); // body of the calendar
+		let actualMonth = this.currentMonth + 1;
+		let firstOfMonth = this.currentYear.toString() + "-" + actualMonth.toString() + "-" + "0" + 1;
+		let lastOfMonth = this.currentYear.toString() + "-" + actualMonth.toString() + "-" + daysInMonth;
+
+		console.log(rhit.eventDates);
 
 		// clearing all previous cells
 		tbl.innerHTML = "";
@@ -417,12 +476,16 @@ rhit.CalendarPageController = class {
 
 				else {
 					let cell = document.createElement("td");
-					let actualMonth = this.currentMonth + 1;
-					let exactDate = this.currentYear.toString() + "-" + actualMonth.toString() + "-" + date;
-					cell.onclick = function () {
-						var dayNum = 0;
-						var rowIndex = this.parentElement.rowIndex;
-						var cellIndex = this.cellIndex;
+					let exactDate = 0;
+					if(date > 9) {
+						exactDate = this.currentYear.toString() + "-" + actualMonth.toString() + "-" + date;
+					} else {
+						exactDate = this.currentYear.toString() + "-" + actualMonth.toString() + "-0" + date;
+					}
+					cell.onclick = (event) => {
+						let dayNum = 0;
+						const rowIndex = cell.parentElement.rowIndex;
+						const cellIndex = cell.cellIndex;
 						if (rowIndex == 1) {
 							dayNum = cellIndex + 1 - emptyDate;
 						}
@@ -431,29 +494,35 @@ rhit.CalendarPageController = class {
 						}
 						console.log("day clicked " + dayNum);
 						console.log(exactDate);
-						//this.modal.style.display = "block";
-						let query = this._ref
-						.where(rhit.FB_KEY_DATE, "==", exactDate)
-						.onSnapshot((querySnapshot) => {
-							this._documentSnapshots = querySnapshot.docs;
-							querySnapshot.forEach((doc) => {
-								console.log(doc.data());
-							});
-						});
+						this.showEvents(exactDate);
+						rhit.fbEventsManager.beginListeningEvents(this.updateList.bind(this), exactDate);
 					}
 					let cellText = document.createTextNode(date);
-					if (date === this.today.getDate() && this.year === this.today.getFullYear() && this.month === this.today.getMonth()) {
+					if (date === this.today.getDate() && year === this.today.getFullYear() && month === this.today.getMonth()) {
 						cell.classList.add("current-date");
 					} // color today's date
+					cell.appendChild(cellText);
 					let cellActiveEvent = document.createElement("div");
 					let cellAlumniEvent = document.createElement("div");
 					let cellRushEvent = document.createElement("div");
 					let cellPhilEvent = document.createElement("div");
-					cellActiveEvent.classList.add("active-event");
-					cellAlumniEvent.classList.add("alumni-event");
-					cellRushEvent.classList.add("rush-event");
-					cellPhilEvent.classList.add("philanthropy-event");
-					cell.appendChild(cellText);
+					for(let i = 0; i < rhit.eventDates.length; i++) {
+						if(rhit.eventDates[i].slice(-2) == date || rhit.eventDates[i].slice(-2) == "0" + date) {
+							if(rhit.eventTypes[i] == 1) {
+								cellActiveEvent.classList.add("active-event");
+							}
+							if(rhit.eventTypes[i] == 2) {
+								cellActiveEvent.classList.add("alumni-event");
+							}
+							if(rhit.eventTypes[i] == 3) {
+								cellRushEvent.classList.add("rush-event");	
+							}
+							if(rhit.eventTypes[i] == 4) {
+								cellPhilEvent.classList.add("philanthropy-event");
+							}
+							
+						}
+					}
 					cell.appendChild(cellActiveEvent);
 					cell.appendChild(cellAlumniEvent);
 					cell.appendChild(cellRushEvent);
@@ -470,6 +539,39 @@ rhit.CalendarPageController = class {
 	}
 }
 
+rhit.FbSingleEventManager = class {
+	constructor(eventId) {
+		this.event = null;
+		this._documentSnapshot = {};
+		this._unsubscribe = null;
+		this._ref = firebase.firestore().collection(rhit.FB_COLLECTION_EVENT).doc(eventId);
+	}
+
+	beginListening(changeListener) {
+		this._unsubscribe = this._ref.onSnapshot((doc) => {
+			if (doc.exists) {
+				console.log("document data: ", doc.data());
+				this._documentSnapshot = doc;
+				this.event = new rhit.Event(
+					docSnapshot.id,
+					docSnapshot.get(rhit.FB_KEY_EVENTTYPE),
+					docSnapshot.get(rhit.FB_KEY_EVENT),
+					docSnapshot.get(rhit.FB_KEY_LOCATION),
+					docSnapshot.get(rhit.FB_KEY_DATE),
+					docSnapshot.get(rhit.FB_KEY_TIME)
+				);
+				changeListener();
+			} else {
+				console.log("No such document");
+			}
+		});
+	}
+	
+	stopListening() {
+		this._unsubscribe();
+	}
+}
+
 rhit.FbEventsManager = class {
 	constructor() {
 		this._documentSnapshots = [];
@@ -478,8 +580,6 @@ rhit.FbEventsManager = class {
 	}
 
 	add(eventType, eventTitle, location, date, time) {
-		console.log(eventType, eventTitle, location, date, time);
-
 		this._ref.add({
 		[rhit.FB_KEY_EVENTTYPE]: eventType,
 		[rhit.FB_KEY_EVENT]: eventTitle,
@@ -493,11 +593,61 @@ rhit.FbEventsManager = class {
 		})
 	}
 
-	beginListening(changeListener) {
-		this._unsubscribe = this._ref.orderBy(rhit.FB_KEY_DATE, "desc")
-		.limit(100)
-		.where(rhit.FB_KEY_DATE, "==", )
+	beginListeningEvents(changeListener, date) {
+		let query = this._ref;
+		query = query.where(rhit.FB_KEY_DATE, "==", date)
+		this._unsubscribe = query
+		.onSnapshot((querySnapshot) => {
+			this._documentSnapshots = querySnapshot.docs;
+			changeListener();
+		});
 	}
+
+	beginListeningCalendar(changeListener, firstOfMonth, lastOfMonth) {
+		let query = this._ref;
+		console.log(rhit.FB_KEY_DATE);
+		query = query.where(rhit.FB_KEY_DATE, ">=", firstOfMonth).where(rhit.FB_KEY_DATE, "<=", lastOfMonth);
+		this._unsubscribe = query
+		.onSnapshot((querySnapshot) => {
+			this._documentSnapshots = querySnapshot.docs;
+			changeListener();
+		});
+		console.log("done");
+
+	}
+
+	stopListening() {
+		this._unsubscribe
+	}
+
+	getEventAtIndex(index) {
+		const docSnapshot = this._documentSnapshots[index];
+		const event = new rhit.Event(
+			docSnapshot.id,
+			docSnapshot.get(rhit.FB_KEY_EVENTTYPE),
+			docSnapshot.get(rhit.FB_KEY_EVENT),
+			docSnapshot.get(rhit.FB_KEY_LOCATION),
+			docSnapshot.get(rhit.FB_KEY_DATE),
+			docSnapshot.get(rhit.FB_KEY_TIME)
+		);
+		return event;
+	}
+
+	get length() {
+		return this._documentSnapshots.length;
+	}
+}
+
+rhit.Event = class {
+	constructor(id, type, title, location, date, time) {
+		this.id = id;
+		this.type = type;
+		this.title = title;
+		this.location = location;
+		this.date = date;
+		this.time = time;
+	}
+
 }
 
 rhit.initializePage = function () {
@@ -505,7 +655,8 @@ rhit.initializePage = function () {
 		console.log("you are on the calendar page");
 		rhit.fbEventsManager = new rhit.FbEventsManager();
 		var pageController = new rhit.CalendarPageController();
-		pageController.showCalendar(pageController.currentMonth, pageController.currentYear);
+		pageController.startListen(pageController.currentMonth, pageController.currentYear);
+		//pageController.showCalendar(pageController.currentMonth, pageController.currentYear);
 	}
 
 	if (document.querySelector('#alumniPledgeClassesPage')) {
@@ -641,7 +792,6 @@ rhit.main = function () {
 	}
 
 	rhit.initializePage();
-
 };
 
 rhit.main();

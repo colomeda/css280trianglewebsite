@@ -382,3 +382,15 @@ input[type=submit]:hover {
     text-decoration: none;
     cursor: pointer;
   }
+
+  .card {
+    margin: 10px 0; 
+}
+
+.card-title,
+.card-subtitle {
+    white-space: nowrap;
+    overflow: hidden;
+    display: block;
+    text-overflow: ellipsis;
+}
