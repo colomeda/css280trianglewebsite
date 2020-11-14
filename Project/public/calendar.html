@@ -214,6 +214,57 @@
 
 </div>
 
+<div class="modal fade" id="editEvent" tabindex="0" role="dialog" aria-labelledby="Edit event" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit Event</h5>
+      </div>
+      <div class="modal-body">
+
+        <div class="form-group align-items-center">
+          <div class="col-auto my-1">
+            <label class="mr-sm-2" for="editEventTypeSelect">Event type</label>
+            <select class="custom-select mr-sm-2" id="editEventType">
+              <option selected>Choose...</option>
+              <option value="1">Active</option>
+              <option value="2">Alumni</option>
+              <option value="3">Rush</option>
+              <option value="4">Philanthropy</option>
+            </select>
+          </div>
+      
+        <div class="form-group bmd-form-group">
+          <label for="formEditEventTitle" class="bmd-label-floating">Event</label>
+          <input type="text" class="form-control" id="editEventTitle">
+          <span class="bmd-help">What is the event title?</span>
+        </div>
+        <div class="form-group bmd-form-group">
+          <label for="formEditLocation" class="bmd-label-floating">Location</label>
+          <input type="text" class="form-control" id="editLocation">
+          <span class="bmd-help">Where is the event taking place?</span>
+        </div>
+        <div class="form-group row">
+          <label for="editDate-input" class="col-2 col-form-label">Date</label>
+          <div class="col-10">
+            <input class="form-control" type="date" value="2020-11-1" id="editDate">
+          </div>
+        </div>
+        <div class="form-group bmd-form-group">
+          <label for="formEditTime" class="bmd-label-floating">Time</label>
+          <input type="text" class="form-control" id="editTime">
+          <span class="bmd-help">What time is the event starting?</span>
+        </div>
+      
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">CANCEL</button>
+        <button id="submitEditEvent" type="button" data-dismiss="modal" class="btn btn-primary">UPDATE</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 
   

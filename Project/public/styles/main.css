@@ -394,3 +394,13 @@ input[type=submit]:hover {
     display: block;
     text-overflow: ellipsis;
 }
+
+.card-edit {
+    margin: 10px 5px;
+    float: right;
+}
+
+.card-delete {
+    margin: 10px 5px;
+    float: right;
+}
