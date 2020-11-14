@@ -478,10 +478,19 @@ rhit.CalendarPageController = class {
 					let cell = document.createElement("td");
 					let exactDate = 0;
 					if(date > 9) {
-						exactDate = this.currentYear.toString() + "-" + actualMonth.toString() + "-" + date;
+						if(actualMonth > 9) {
+							exactDate = this.currentYear.toString() + "-" + actualMonth.toString() + "-" + date;
+						} else {
+							exactDate = this.currentYear.toString() + "-0" + actualMonth.toString() + "-" + date;
+						}
 					} else {
-						exactDate = this.currentYear.toString() + "-" + actualMonth.toString() + "-0" + date;
+						if(actualMonth > 9) {
+							exactDate = this.currentYear.toString() + "-" + actualMonth.toString() + "-0" + date;
+						} else {
+							exactDate = this.currentYear.toString() + "-0" + actualMonth.toString() + "-0" + date;
+						}
 					}
+					console.log(exactDate);
 					cell.onclick = (event) => {
 						let dayNum = 0;
 						const rowIndex = cell.parentElement.rowIndex;
@@ -507,7 +516,8 @@ rhit.CalendarPageController = class {
 					let cellRushEvent = document.createElement("div");
 					let cellPhilEvent = document.createElement("div");
 					for(let i = 0; i < rhit.eventDates.length; i++) {
-						if(rhit.eventDates[i].slice(-2) == date || rhit.eventDates[i].slice(-2) == "0" + date) {
+						if((rhit.eventDates[i].slice(-2) == date || rhit.eventDates[i].slice(-2) == "0" + date) &&
+							(rhit.eventDates[i].substring(5, 7) == actualMonth || rhit.eventDates[i].substring(5, 7) == "0" + actualMonth)) {
 							if(rhit.eventTypes[i] == 1) {
 								cellActiveEvent.classList.add("active-event");
 							}
